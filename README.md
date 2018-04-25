@@ -16,7 +16,7 @@ The CRONTAB environment variable is used to define the cron for Supercronic.
 
 The complete crontab must be stored within the CRONTAB variable.
 
-Example Usage:
+Try this out:
 
 ```shell
 echo '# Say hello with cowsay every 5 seconds
@@ -25,7 +25,7 @@ echo '# Say hello with cowsay every 5 seconds
 # Tell a fortune at 7am
 7 * * * * docker run -e TZ --rm wernight/funbox fortune' > sample-crontab
 
-CRONTAB=`cat sample-crontab` docker run -e CRONTAB -e TZ="Australia/Melbourne" --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB -e TZ="Australia/Melbourne" --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 
 ### Prerequisities
