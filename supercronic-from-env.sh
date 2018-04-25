@@ -7,6 +7,7 @@ if [ -z ${CRONTAB+x} ]; then
   exit 1
 fi
 
+date # For debugging, so people know what TZ the container is running in.
 echo "$CRONTAB" > ./crontab
 echo "CRONTAB:"
 cat ./crontab

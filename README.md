@@ -56,6 +56,10 @@ docker run --privileged --entrypoint= --rm -it -v /var/run/docker.sock:/var/run/
 
 *  `/var/run/docker.sock:/var/run/docker.sock` - Allows docker in the container to use host docker.
 
+### Timezones
+
+By default docker will run containers in UTC. You'll need to explicitly set the timezone (TZ) environment variable to match your expectations.
+
 ## Find Us
 
 * [GitHub](https://github.com/trammel/docker-with-supercronic)
