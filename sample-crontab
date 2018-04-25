@@ -1,0 +1,2 @@
+# Every 6 seconds, say hi
+*/6 * * * * * * echo Hi

@@ -12,4 +12,6 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
     && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
     && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-ENTRYPOINT ["/usr/local/bin/supercronic"]
+COPY supercronic-from-env.sh /usr/local/bin/supercronic-from-env.sh
+
+ENTRYPOINT ["/usr/local/bin/supercronic-from-env.sh"]

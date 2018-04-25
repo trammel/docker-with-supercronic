@@ -1,25 +1,21 @@
-# Docker with supercronic
+# Docker with Supercronic
 
-A docker-in-docker based image, with supercronic installed.
+A docker-in-docker based image, with Supercronic installed.
 
-See [supercronic, a cron for containers](https://github.com/aptible/supercronic) for a complete description of supercronic.
+See [Supercronic, a cron for containers](https://github.com/aptible/supercronic) for a complete description of supercronic.
 
 Being based on docker, this allows the cron entries to use docker either inside the container, or more normally communicate with the host docker to execute commands.
 
+The CRONTAB environment variable is used to define the cron for supercronic.
+
 ## Getting Started
 
-Put a crontab within a volume, or have it available on the docker host.
- 
-Run the container by passing the path crontab filename as the first argument.
+The complete crontab must be stored within the CRONTAB variable.
 
-### Host mount
-```shell
-docker run --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/host/path/crons:/crons trammel/docker-with-supercronic /crons/crontab 
-```
+Eg. ``` export CRONTAB=`cat sample-crontab` ```
 
-### Volume mount
 ```shell
-docker run --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v my-crons:/crons trammel/docker-with-supercronic /crons/crontab 
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 
 ### Prerequisities
@@ -32,24 +28,32 @@ In order to run this container you'll need docker installed.
 
 ### Usage
 
-#### Container Parameters
+#### Environment variables
 
-***Crontab location***
+***CRONTAB***
+
+The CRONTAB variable must contain a complete, well formatted crontab for supercronic to run.
+
+##### Standard detached usage
 
 ```shell
-docker run --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/host/path/crons:/crons trammel/docker-with-supercronic /crons/crontab 
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
+```
+
+##### Testing in interactive mode
+
+```shell
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 
 ##### Opening a shell on the container
 
 ```shell
-docker run --privileged --entrypoint= --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/host/path/crons:/crons trammel/docker-with-supercronic /bin/sh 
+docker run --privileged --entrypoint= --rm -it -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic /bin/sh
 ```
 
 #### Volumes
 
-
-* `/tmp/host/path/crons/` - A place for crontab
 *  `/var/run/docker.sock:/var/run/docker.sock` - Allows docker in the container to use host docker.
 
 ## Find Us
