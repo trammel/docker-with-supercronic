@@ -67,4 +67,4 @@ docker run --privileged --entrypoint= --rm -it -v /var/run/docker.sock:/var/run/
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
