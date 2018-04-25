@@ -1,2 +1,6 @@
-# Every 6 seconds, say hi
-*/6 * * * * * * echo Hi
+# Say hello with cowsay every 5 seconds
+*/5 * * * * * * docker run -e TZ --rm wernight/funbox cowsay "Hi, it's `date`"
+
+# Tell a fortune at 7am
+7 * * * * docker run -e TZ --rm wernight/funbox fortune
+

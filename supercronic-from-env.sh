@@ -7,7 +7,12 @@ if [ -z ${CRONTAB+x} ]; then
   exit 1
 fi
 
-date # For debugging, so people know what TZ the container is running in.
+if [ -z ${TZ+x} ]; then
+  echo "TZ environment variable must be set"
+  exit 1
+fi
+
+date
 echo "$CRONTAB" > ./crontab
 echo "CRONTAB:"
 cat ./crontab

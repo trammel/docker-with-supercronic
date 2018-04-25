@@ -6,16 +6,18 @@ See [Supercronic, a cron for containers](https://github.com/aptible/supercronic)
 
 Being based on docker, this allows the cron entries to use docker either inside the container, or more normally communicate with the host docker to execute commands.
 
-The CRONTAB environment variable is used to define the cron for supercronic.
+Effectively, this means any docker image can be launched through Supercronic, and then cleaned up later.
+
+The CRONTAB environment variable is used to define the cron for Supercronic.
 
 ## Getting Started
 
 The complete crontab must be stored within the CRONTAB variable.
 
-Eg. ``` export CRONTAB=`cat sample-crontab` ```
+Eg.
 
 ```shell
-CRONTAB=`cat sample-crontab` docker run -e CRONTAB --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB -e TZ="Australia/Melbourne" --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 
 ### Prerequisities
@@ -32,18 +34,22 @@ In order to run this container you'll need docker installed.
 
 ***CRONTAB***
 
-The CRONTAB variable must contain a complete, well formatted crontab for supercronic to run.
+The CRONTAB variable must contain a complete, well formatted crontab for Supercronic to run.
+
+***TZ***
+
+By default docker will run containers in UTC. You'll need to explicitly set the timezone (TZ) environment variable to match your expectations.
 
 ##### Standard detached usage
 
 ```shell
-CRONTAB=`cat sample-crontab` docker run -e CRONTAB --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB -e TZ="Australia/Melbourne" --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 
 ##### Testing in interactive mode
 
 ```shell
-CRONTAB=`cat sample-crontab` docker run -e CRONTAB --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
+CRONTAB=`cat sample-crontab` docker run -e CRONTAB -e TZ="Australia/Melbourne" --privileged --rm -it -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 
 ##### Opening a shell on the container
@@ -55,10 +61,6 @@ docker run --privileged --entrypoint= --rm -it -v /var/run/docker.sock:/var/run/
 #### Volumes
 
 *  `/var/run/docker.sock:/var/run/docker.sock` - Allows docker in the container to use host docker.
-
-### Timezones
-
-By default docker will run containers in UTC. You'll need to explicitly set the timezone (TZ) environment variable to match your expectations.
 
 ## Find Us
 
