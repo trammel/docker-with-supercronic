@@ -6,7 +6,9 @@ See [Supercronic, a cron for containers](https://github.com/aptible/supercronic)
 
 Being based on docker, this allows the cron entries to use docker either inside the container, or more normally communicate with the host docker to execute commands.
 
-Effectively, this means any docker image can be launched through Supercronic, and then cleaned up later.
+Effectively, this means any docker image may be periodically launched through Supercronic, and then cleaned up later.
+
+All the examples here assume that the docker host is also used to run the docker images, through mounting of `/var/run/docker.sock`
 
 The CRONTAB environment variable is used to define the cron for Supercronic.
 
@@ -14,9 +16,15 @@ The CRONTAB environment variable is used to define the cron for Supercronic.
 
 The complete crontab must be stored within the CRONTAB variable.
 
-Eg.
+Example Usage:
 
 ```shell
+echo '# Say hello with cowsay every 5 seconds
+*/5 * * * * * * docker run -e TZ --rm wernight/funbox cowsay "Hi, it is `date`"
+
+# Tell a fortune at 7am
+7 * * * * docker run -e TZ --rm wernight/funbox fortune' > sample-crontab
+
 CRONTAB=`cat sample-crontab` docker run -e CRONTAB -e TZ="Australia/Melbourne" --detach --privileged -v /var/run/docker.sock:/var/run/docker.sock trammel/docker-with-supercronic
 ```
 

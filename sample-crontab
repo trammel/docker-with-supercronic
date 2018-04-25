@@ -1,6 +1,5 @@
 # Say hello with cowsay every 5 seconds
-*/5 * * * * * * docker run -e TZ --rm wernight/funbox cowsay "Hi, it's `date`"
+*/5 * * * * * * docker run -e TZ --rm wernight/funbox cowsay "Hi, it is `date`"
 
 # Tell a fortune at 7am
 7 * * * * docker run -e TZ --rm wernight/funbox fortune
-
